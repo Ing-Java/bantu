@@ -1,5 +1,5 @@
 [versions]
-agpVersion = '8.6.1'
+agpVersion = "8.7.1"
 appCompatVersion = '1.7.0'
 materialVersion = '1.12.0'
 constraintLayoutVersion = '2.1.4'

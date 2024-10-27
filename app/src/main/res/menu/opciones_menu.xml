@@ -6,8 +6,8 @@
         android:id="@+id/opcReiniciarPartida"
         android:title="@string/txtReiniciarPartida"
         android:icon="@android:drawable/ic_menu_rotate"
-        android:orderInCategory="5"
-        app:showAsAction="ifRoom|withText"
+        android:orderInCategory="100"
+        app:showAsAction="never"
         />
 
     <item

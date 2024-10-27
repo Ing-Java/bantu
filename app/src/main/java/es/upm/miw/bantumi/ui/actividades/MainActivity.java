@@ -187,6 +187,25 @@ public class MainActivity extends AppCompatActivity {
         if (juegoBantumi.getSemillas(6) == 6 * numInicialSemillas) {
             texto = "¡¡¡ EMPATE !!!";
         }
+        @Override
+        public boolean onOptionsItemSelected(MenuItem item) {
+            if (item.getItemId() == R.id.action_restart) {
+                new AlertDialog.Builder(this)
+                        .setTitle("Reiniciar partida")
+                        .setMessage("¿Estás seguro de que quieres reiniciar la partida?")
+                        .setPositiveButton("Sí", (dialog, which) -> reiniciarPartida())
+                        .setNegativeButton("No", null)
+                        .show();
+                return true;
+            }
+            return super.onOptionsItemSelected(item);
+        }
+
+        private void reiniciarPartida() {
+            // Reiniciar el tablero al estado inicial
+            juego.reiniciar(); // Suponiendo que el objeto juego maneja el estado del tablero.
+            actualizarUI();
+        }
 
         // @TODO guardar puntuación
 
