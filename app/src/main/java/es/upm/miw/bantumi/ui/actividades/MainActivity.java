@@ -232,6 +232,22 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+        //guradar resultado al reminar partida
+
+        private void guardarPuntuacion(String jugador, int semillas) {
+            ResultadosDatabaseHelper dbHelper = new ResultadosDatabaseHelper(this);
+            SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+            ContentValues values = new ContentValues();
+            values.put("jugador", jugador);
+            values.put("fecha", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date()));
+            values.put("semillas", semillas);
+
+            db.insert("resultados", null, values);
+            db.close();
+        }
+
+
         // @TODO guardar puntuación
 
         // terminar
