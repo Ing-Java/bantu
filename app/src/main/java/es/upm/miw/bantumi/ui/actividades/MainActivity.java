@@ -25,6 +25,7 @@ import es.upm.miw.bantumi.R;
 import es.upm.miw.bantumi.dominio.logica.JuegoBantumi;
 import es.upm.miw.bantumi.ui.viewmodel.BantumiViewModel;
 
+
 public class MainActivity extends AppCompatActivity {
 
     protected final String LOG_TAG = "MiW";
@@ -203,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
 
         private void reiniciarPartida() {
             // Reiniciar el tablero al estado inicial
-            juego.reiniciar(); // Suponiendo que el objeto juego maneja el estado del tablero.
+            JuegoBantumi.reiniciar(); // Suponiendo que el objeto juego maneja el estado del tablero.
             actualizarUI();
         }
 
@@ -245,6 +246,33 @@ public class MainActivity extends AppCompatActivity {
 
             db.insert("resultados", null, values);
             db.close();
+        }
+
+
+        // creo el método para guardar los 10 mejores resultados
+
+        private void mostrarMejoresResultados() {
+            ResultadosDatabaseHelper dbHelper = new ResultadosDatabaseHelper(this);
+            SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+            Cursor cursor = db.query("resultados", null, null, null, null, null, "semillas DESC", "10");
+            List<String> resultados = new ArrayList<>();
+
+            while (cursor.moveToNext()) {
+                String jugador = cursor.getString(cursor.getColumnIndex("jugador"));
+                String fecha = cursor.getString(cursor.getColumnIndex("fecha"));
+                int semillas = cursor.getInt(cursor.getColumnIndex("semillas"));
+                resultados.add(jugador + " - " + semillas + " semillas (" + fecha + ")");
+            }
+            cursor.close();
+            db.close();
+
+            // Mostrar resultados en un diálogo
+            new AlertDialog.Builder(this)
+                    .setTitle("Mejores Resultados")
+                    .setItems(resultados.toArray(new String[0]), null)
+                    .setPositiveButton("Aceptar", null)
+                    .show();
         }
 
 
