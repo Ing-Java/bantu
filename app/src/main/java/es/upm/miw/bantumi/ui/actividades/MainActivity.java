@@ -207,6 +207,31 @@ public class MainActivity extends AppCompatActivity {
             actualizarUI();
         }
 
+        private void guardarPartida() {
+            try (FileOutputStream fos = openFileOutput("partida_guardada.txt", MODE_PRIVATE)) {
+                fos.write(juego.serializarEstado().getBytes());
+                Toast.makeText(this, "Partida guardada", Toast.LENGTH_SHORT).show();
+            } catch (IOException e) {
+                e.printStackTrace();
+                Toast.makeText(this, "Error al guardar partida", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        // metodo para cargar el estado desde el archivo guardado
+        private void recuperarPartida() {
+            try (FileInputStream fis = openFileInput("partida_guardada.txt")) {
+                byte[] bytes = new byte[fis.available()];
+                fis.read(bytes);
+                String estado = new String(bytes);
+                juego.deserializarEstado(estado); // Método que restaura el estado.
+                actualizarUI();
+                Toast.makeText(this, "Partida recuperada", Toast.LENGTH_SHORT).show();
+            } catch (IOException e) {
+                e.printStackTrace();
+                Toast.makeText(this, "No hay partida guardada", Toast.LENGTH_SHORT).show();
+            }
+        }
+
         // @TODO guardar puntuación
 
         // terminar

@@ -14,8 +14,8 @@
         android:id="@+id/opcGuardarPartida"
         android:title="@string/txtOpcionGuardar"
         android:icon="@android:drawable/ic_menu_save"
-        android:orderInCategory="10"
-        app:showAsAction="ifRoom"
+        android:orderInCategory="100"
+        app:showAsAction="never"
         />
 
     <item
